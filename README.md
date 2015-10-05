@@ -47,11 +47,7 @@ node.master: true
 node.data: false
 ```
 
-4.) API layer to protect data inside elasticsearch.
-
-It is very common for people to use elasticsearch in a public facing production environment. Companies like yelp and wikimedia are big users of elasticsearch. So the one thing you NEVER want to give access to is a direct contact into your elasticsearch cluster. For this reason you will want to build an API layer. This can be as simple as a NodeJS or PHP application but always make sure that your data is protected. You can take this API and point it to an internal load balancer so that way the public never has access to your data directly.
-
-5.) Avoiding split brain!
+4.) Avoiding split brain!
 
 Split-brain is an event for the cluster when it is split into two and and each side has elected a new master, they will diverge and cannot be rejoined without killing one half of the cluster. 
 
@@ -63,13 +59,17 @@ In the tutorial created for this I have 3 master nodes so I will set the followi
 discovery.zen.minimum_master_nodes: 2
 ```
 
-6.) Enable mlockall
+5.) Enable mlockall
 
 Edit /etc/elasticsearch/elasticsearch.yml and set these values. This allows the JVM to lock its memory and prevent it from being swapped by the OS. Any sort of swapping can have drastic performance hits on elasticsearch.
 
 ```
 bootstrap.mlockall: true
 ```
+
+6.) API layer to protect data inside elasticsearch.
+
+It is very common for people to use elasticsearch in a public facing production environment. Companies like yelp and wikimedia are big users of elasticsearch. So the one thing you NEVER want to give access to is a direct contact into your elasticsearch cluster. For this reason you will want to build an API layer. This can be as simple as a NodeJS or PHP application but always make sure that your data is protected. You can take this API and point it to an internal load balancer so that way the public never has access to your data directly.
 
 7.) Install these plugins and always monitor!
 
