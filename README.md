@@ -15,6 +15,7 @@ indices.fielddata.cache.size: 75%
 Edit /etc/sysconfig/elasticsearch and go to the line with ES_HEAP_SIZE and you will want to set this value to be 50% of the available RAM in your system and NO MORE than 31g. This is important because you will be able to allocate more cache to the JVM and is especially useful in high volume applications. The default is 250mb.
 
 3.) Seperating out your nodes.
+
 3a.) Data nodes
 
 Edit /etc/elasticsearch/elasticsearch.yml and set these values.
