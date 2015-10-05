@@ -50,7 +50,7 @@ It is very common for people to use elasticsearch in a public facing production 
 5.) Install these plugins and always monitor!
 
 ```
-./bin/plugin -install mobz/elasticsearch-head
-./bin/plugin -install lukas-vlcek/bigdesk
+./bin/plugin --install mobz/elasticsearch-head
+./bin/plugin --install lukas-vlcek/bigdesk
 ./bin/plugin --install lmenezes/elasticsearch-kopf/1.5.7
 ```
