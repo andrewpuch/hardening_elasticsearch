@@ -47,7 +47,23 @@ node.data: false
 
 It is very common for people to use elasticsearch in a public facing production environment. Companies like yelp and wikimedia are big users of elasticsearch. So the one thing you NEVER want to give access to is a direct contact into your elasticsearch cluster. For this reason you will want to build an API layer. This can be as simple as a NodeJS or PHP application but always make sure that your data is protected. You can take this API and point it to an internal load balancer so that way the public never has access to your data directly.
 
-5.) Install these plugins and always monitor!
+5.) Avoiding split brain! *
+
+Split-brain is a catastrophic event for ElasticSearch clusters. Once a cluster is split into two and and each side has elected a new master, they will diverge and cannot be rejoined without killing one half of the cluster. 
+
+```
+discovery.zen.minimum_master_nodes: set this to at least N/2+1 on clusters with N > 2, where N is the number of master nodes in the cluster.
+
+In the tutorial created for this I have 3 master nodes so I will set the following.
+
+discovery.zen.minimum_master_nodes: 2
+```
+
+minimum_master_nodes ensures that a node has to see that number of master eligible nodes (nodes that could potentially take over as masters) to be operational. Otherwise, the node goes into an error state and refuses to accept requests, as it considers itself to be split off from the cluster.
+
+* Citation : http://asquera.de/opensource/2012/11/25/elasticsearch-pre-flight-checklist/
+
+6.) Install these plugins and always monitor!
 
 ```
 ./bin/plugin --install mobz/elasticsearch-head
