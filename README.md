@@ -61,7 +61,15 @@ discovery.zen.minimum_master_nodes: 2
 
 minimum_master_nodes ensures that a node has to see that number of master eligible nodes (nodes that could potentially take over as masters) to be operational. Otherwise, the node goes into an error state and refuses to accept requests, as it considers itself to be split off from the cluster.
 
-6.) Install these plugins and always monitor!
+6.) Enable mlockall
+
+Edit /etc/elasticsearch/elasticsearch.yml and set these values. This allows the JVM to lock its memory and prevent it from being swapped by the OS. Any sort of swapping can have drastic performance hits on elasticsearch.
+
+```
+bootstrap.mlockall: true
+```
+
+7.) Install these plugins and always monitor!
 
 ```
 ./bin/plugin --install mobz/elasticsearch-head
@@ -69,7 +77,7 @@ minimum_master_nodes ensures that a node has to see that number of master eligib
 ./bin/plugin --install lmenezes/elasticsearch-kopf/1.5.7
 ```
 
-7.) Tag your nodes properly.
+8.) Tag your nodes properly.
 
 Always give your nodes a good name and a good unique cluster name. This way you can at a glance know exactly what a node does and which cluster it's in. Typically i'll give them names like client-node1,2,3 etc.
 
