@@ -47,7 +47,7 @@ node.data: false
 
 It is very common for people to use elasticsearch in a public facing production environment. Companies like yelp and wikimedia are big users of elasticsearch. So the one thing you NEVER want to give access to is a direct contact into your elasticsearch cluster. For this reason you will want to build an API layer. This can be as simple as a NodeJS or PHP application but always make sure that your data is protected. You can take this API and point it to an internal load balancer so that way the public never has access to your data directly.
 
-5.) Avoiding split brain! *
+5.) Avoiding split brain!
 
 Split-brain is a catastrophic event for ElasticSearch clusters. Once a cluster is split into two and and each side has elected a new master, they will diverge and cannot be rejoined without killing one half of the cluster. 
 
@@ -61,8 +61,6 @@ discovery.zen.minimum_master_nodes: 2
 
 minimum_master_nodes ensures that a node has to see that number of master eligible nodes (nodes that could potentially take over as masters) to be operational. Otherwise, the node goes into an error state and refuses to accept requests, as it considers itself to be split off from the cluster.
 
-* Citation : http://asquera.de/opensource/2012/11/25/elasticsearch-pre-flight-checklist/
-
 6.) Install these plugins and always monitor!
 
 ```
@@ -70,3 +68,9 @@ minimum_master_nodes ensures that a node has to see that number of master eligib
 ./bin/plugin --install lukas-vlcek/bigdesk
 ./bin/plugin --install lmenezes/elasticsearch-kopf/1.5.7
 ```
+
+7.) Tag your nodes properly.
+
+Always give your nodes a good name and a good unique cluster name. This way you can at a glance know exactly what a node does and which cluster it's in. Typically i'll give them names like client-node1,2,3 etc.
+
+* Citation : http://asquera.de/opensource/2012/11/25/elasticsearch-pre-flight-checklist/
