@@ -14,6 +14,10 @@ indices.fielddata.cache.size: 75%
 
 Edit /etc/sysconfig/elasticsearch and go to the line with ES_HEAP_SIZE and you will want to set this value to be 50% of the available RAM in your system and NO MORE than 31g. This is important because you will be able to allocate more cache to the JVM and is especially useful in high volume applications. The default is 250mb.
 
+Memory is most important for your data nodes as they are the workhorse of the system and are storing large amounts of data. The client nodes need a decent boost because they are performing alot of aggregations and pulling together results. And the master nodes don't really need as much because they are just the coordinators.
+
+All in all you can use smaller instances for master and client than you would for data nodes.
+
 3.) Seperating out your nodes.
 
 3a.) Data nodes
