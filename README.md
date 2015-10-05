@@ -42,7 +42,11 @@ node.master: true
 node.data: false
 ```
 
-4.) Install these plugins and always monitor!
+4.) API layer to protect data inside elasticsearch.
+
+It is very common for people to use elasticsearch in a public facing production environment. Companies like yelp and wikimedia are big users of elasticsearch. So the one thing you NEVER want to give access to is a direct contact into your elasticsearch cluster. For this reason you will want to build an API layer. This can be as simple as a NodeJS or PHP application but always make sure that your data is protected. You can take this API and point it to an internal load balancer so that way the public never has access to your data directly.
+
+5.) Install these plugins and always monitor!
 
 ```
 ./bin/plugin -install mobz/elasticsearch-head
